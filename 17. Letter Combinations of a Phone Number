@@ -1,0 +1,29 @@
+class Solution {
+
+    private static String MAPPING[] = new String[] {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<> ();
+        int index = 0; 
+        
+        if(digits.length() > 0)
+            solve(digits, index, "", res);
+            
+        return res;
+    }
+
+    private void solve(String digits, int index, String output, List<String> res) {
+
+        if(index >= digits.length()) {
+            res.add(output);
+            return;
+        }
+
+        int num = digits.charAt(index) - '0';
+        String str = MAPPING[num];
+
+        for(int i = 0; i < str.length(); i++) {
+            solve(digits, index + 1, output + str.charAt(i), res);
+        }
+    } 
+}
