@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) 
+            return null;
+        
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+}
+
+
+
+
+/*
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) 
+            return null;
+        
+        Queue<TreeNode> que = new LinkedList<> ();
+        que.add(root);
+        
+        while(que.isEmpty() == false) {
+            TreeNode curr = que.remove();
+            if(curr.left != null)   
+                que.add(curr.left);
+            if(curr.right != null)
+                que.add(curr.right);
+            
+            TreeNode temp = curr.left;
+            curr.left = curr.right;
+            curr.right = temp;
+        }
+
+        
+        return root;
+    }
+}
+
+*/
