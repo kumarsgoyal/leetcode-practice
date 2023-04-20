@@ -1,0 +1,43 @@
+/*
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+class Tree {
+    ArrayList<Integer> postOrder(Node node) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        Stack<Node> stack = new Stack<> ();
+        Node curr = node;
+        
+        while(stack.isEmpty() == false || curr != null) {
+            while(curr != null) {
+                if(curr.right != null)
+                    stack.push(curr.right);
+                stack.push(curr);
+                curr = curr.left;
+            }
+            
+            curr = stack.pop();
+            
+            if(curr.right != null && stack.isEmpty() == false && stack.peek() == curr.right) {
+                stack.pop();
+                stack.push(curr);
+                curr = curr.right;
+            }
+            else {
+                res.add(curr.data);
+                curr = null;
+            }
+            
+        }
+        
+        return res;
+    }
+}
