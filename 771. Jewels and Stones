@@ -1,0 +1,25 @@
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) {
+        boolean[] lower = new boolean[26];
+        boolean[] upper = new boolean[26];
+        int count = 0;
+        
+        for(int i = 0; i < jewels.length(); i++) {
+            char c = jewels.charAt(i);
+            if(c >= 'a' && c <= 'z') 
+                lower[c - 'a'] = true;
+            else    
+                upper[c - 'A'] = true;
+        }
+
+        for(int i = 0; i < stones.length(); i++) {
+            char c = stones.charAt(i);
+            if(c >= 'a' && c <= 'z' && lower[c - 'a'] == true) 
+                count++;
+            else if(c >= 'A' && c <= 'Z' && upper[c - 'A'] == true)
+                count++;
+        }
+
+        return count;
+    }
+}
