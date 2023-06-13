@@ -1,0 +1,56 @@
+// time :- O(n)
+// space :- O(n)
+
+class Solution {
+    public String restoreString(String s, int[] indices) {
+        Map<Integer, Character> map = new HashMap<> ();
+        int len = indices.length;
+
+        for(int i = 0; i < len; i++) {
+            map.put(indices[i], s.charAt(i));
+        }
+
+        StringBuilder res = new StringBuilder();
+
+        for(int i = 0; i < len; i++) {
+            res.append(map.get(i));
+        }
+
+        return res.toString();
+    }
+}
+
+/*
+
+// time :- O(n)
+// space :- O(n)
+
+class Solution {
+    public String restoreString(String s, int[] indices) {
+        int len = indices.length;
+        char[] str = s.toCharArray();
+
+        for(int i = 0; i < len; i++) {
+            while(i != indices[i]) {
+                System.out.println(str[i] + " " + indices[i] + " " + i);
+                swapChar(str, i, indices);
+                System.out.println(str[i] + " " + indices[i] + " " + i);
+            }
+        }
+
+        return new String(str);
+    }
+
+    private void swapChar(char[] str, int i, int[] indices) {
+        int tempIndex = indices[i];
+        char tempChar = str[i];
+
+        str[i] = str[tempIndex];
+        indices[i] = indices[tempIndex];
+
+        str[tempIndex] = tempChar;
+        indices[tempIndex] = tempIndex;
+    }
+}
+
+*/
