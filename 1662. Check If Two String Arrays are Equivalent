@@ -1,0 +1,30 @@
+class Solution {
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        int index1 = 0, index2 = 0;
+        int col1 = 0, col2 = 0;
+
+        while(index1 < word1.length && index2 < word2.length) {
+            if(word1[index1].charAt(col1) != word2[index2].charAt(col2)) {
+                return false;
+            }
+            
+            col1++;
+            col2++;
+
+            if(col1 == word1[index1].length()) {
+                col1 = 0;
+                index1++;
+            }
+            if(col2 == word2[index2].length()) {
+                col2 = 0;
+                index2++;
+            }
+
+        } 
+
+        if(index1 < word1.length || index2 < word2.length)  
+            return false;
+
+        return true;
+    }
+}
