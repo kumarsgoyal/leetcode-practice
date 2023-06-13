@@ -1,0 +1,16 @@
+class Solution {
+    public List<String> cellsInRange(String s) {
+        List<String> list = new ArrayList<> ();
+        
+        char c1 = s.charAt(0), c2 = s.charAt(3);
+        int r1 = s.charAt(1) - '0', r2 = s.charAt(4) - '0';
+
+        for(char c = c1; c <= c2; c++) {
+            for(int i = r1; i <= r2; i++) {
+                list.add(c + "" + i);
+            }
+        }
+
+        return list;
+    }
+}
