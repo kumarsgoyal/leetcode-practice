@@ -1,5 +1,28 @@
 class Solution {
     public String sortSentence(String s) {
+        String[] arr = s.split(" ");
+        String[] strIndex = new String[arr.length];
+        
+        for(int i = 0; i < arr.length; i++) {
+            int index = (arr[i].charAt(arr[i].length() - 1)) - '0';
+            strIndex[index - 1] = arr[i].substring(0, arr[i].length() - 1);
+        }
+
+        StringBuilder res = new StringBuilder();
+
+        for(int i = 0; i < strIndex.length; i++) {
+            res.append(strIndex[i]);
+            if(i < (strIndex.length - 1))
+                res.append(" ");
+        }
+
+        return res.toString();
+    }
+}
+
+/*
+class Solution {
+    public String sortSentence(String s) {
         Map<Integer, StringBuilder> map = new HashMap<> ();
         int count = 0;
 
@@ -27,3 +50,4 @@ class Solution {
         return res.toString();
     }
 }
+*/
