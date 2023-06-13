@@ -1,0 +1,29 @@
+class Solution {
+    public String sortSentence(String s) {
+        Map<Integer, StringBuilder> map = new HashMap<> ();
+        int count = 0;
+
+        for(int i = 0; i < s.length(); i++) {
+            StringBuilder temp = new StringBuilder();
+            
+            while((s.charAt(i) >= 'a' && s.charAt(i) <= 'z' ) ||
+                (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z')) {
+                temp.append(s.charAt(i));
+                i++;
+            }    
+            map.put(s.charAt(i) - '0', temp);
+            i++;
+            count++;
+        }
+
+        StringBuilder res = new StringBuilder();
+
+        for(int i = 1; i <= count; i++) {
+            res.append(map.get(i));
+            if(i < count) 
+                res.append(" ");
+        }
+
+        return res.toString();
+    }
+}
