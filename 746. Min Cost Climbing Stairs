@@ -1,7 +1,7 @@
 
 // DP
+// time: O(N)
 // space: O(N)
-// time: O(1)
 
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
@@ -27,8 +27,8 @@ class Solution {
 /*
 
 // Recursion
-// space: O(2^n)
-// time: O(1)
+// time: O(2^n)
+// space: O(1)
 
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
