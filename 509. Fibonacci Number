@@ -1,0 +1,58 @@
+// Iterative Approach 
+// time: O(N)
+// space: O(1) 
+
+class Solution {
+    public int fib(int n) {
+        if(n == 0 || n == 1)
+            return n;
+        return fib(n - 1) + fib(n - 2);
+    }
+}
+
+
+
+/*
+
+// Dynamic Programming Approach 
+// time: O(N)
+// space: O(N) 
+
+class Solution {
+    public int fib(int n) {
+        if(n == 0 || n == 1)
+            return n;
+
+        int[] fibSeries = new int[n + 1];
+        fibSeries[0] = 0;
+        fibSeries[1] = 1;
+
+        for(int i = 2; i <= n; i++) {
+            fibSeries[i] = fibSeries[i - 1] + fibSeries[i - 2];
+        }
+
+        return fibSeries[n];
+    }
+}
+
+*/
+
+
+
+
+
+/*
+
+// recursion
+// time: O(2^n)
+// space: O(1) 
+
+class Solution {
+    public int fib(int n) {
+        if(n == 0 || n == 1)
+            return n;
+        return fib(n - 1) + fib(n - 2);
+    }
+}
+
+*/
