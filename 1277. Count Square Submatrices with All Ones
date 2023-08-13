@@ -1,0 +1,130 @@
+
+// DP
+// time: O(N * M)
+// space: O(1)
+
+class Solution {
+    public int countSquares(int[][] matrix) {
+        return countSquaresUtil(matrix);
+    }
+
+    private int countSquaresUtil(int[][] dp) {
+        int m = dp.length;
+        int n = dp[0].length;
+        int count = 0;
+        
+        
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(dp[i][j] == 1) {
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j], Math.min(dp[i][ j - 1], dp[i - 1][j - 1]));
+                }
+            }
+        }
+
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                count += dp[i][j];
+            }
+        }
+
+        return count;
+    }
+}
+
+
+
+
+/*
+
+// DP
+// time: O(N * M)
+// space: O(N * M)
+
+class Solution {
+    public int countSquares(int[][] matrix) {
+        return countSquaresUtil(matrix);
+    }
+
+    private int countSquaresUtil(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] dp = new int [m][n];
+        int count = 0;
+
+        for(int i = 0; i < n; i++) {
+            dp[0][i] = matrix[0][i];
+            // count += dp[0][i];
+        }
+        
+        for(int i = 1; i < m; i++) {
+            dp[i][0] = matrix[i][0];
+            // count += dp[i][0];
+        }
+
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(matrix[i][j] == 1) {
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j], Math.min(dp[i][ j - 1], dp[i - 1][j - 1]));
+                    // count += dp[i][j];
+                }
+            }
+        }
+
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                count += dp[i][j];
+            }
+        }
+
+        return count;
+    }
+}
+
+*/
+
+
+
+
+
+/*
+
+// brute force
+// time: O(2 ^ (N*M))
+// space: O(1)
+
+class Solution {
+    public int countSquares(int[][] matrix) {
+        return countSquaresUtil(matrix);
+    }
+
+    private int countSquaresUtil(int[][] matrix) {
+        int count = 0;
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(matrix[i][j] == 1)   
+                    count += getCount(matrix, n, m, i, j);
+            }
+        }
+
+        return count;
+    }
+
+    private int getCount(int[][] matrix, int n, int m, int i, int j) {
+        if(i < 0 || i >= m || j < 0 || j >= n || matrix[i][j] == 0) 
+            return 0;
+        
+        int right = getCount(matrix, n, m, i, j + 1);
+        int bottom = getCount(matrix, n, m, i + 1, j);
+        int rightBottom = getCount(matrix, n, m, i + 1, j + 1);
+
+        return 1 + Math.min(right, Math.min(bottom, rightBottom));
+    }
+}
+
+*/
