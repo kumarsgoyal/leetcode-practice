@@ -1,0 +1,71 @@
+// time: O(2^N)
+// space: O(N)
+
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<> ();
+        char[] string = new char[n * 2];
+        generateParenthesisUtil(n, n, string, list, 0);
+
+        return list;
+    }
+
+    private void generateParenthesisUtil(int openCount, int closeCount, char[] string, List<String> list, int index) {
+
+        if(openCount == 0 && closeCount == 0) {
+            list.add(String.valueOf(string));
+            return;
+        }
+
+        if(openCount > 0) {
+            string[index] = '(';
+            generateParenthesisUtil(openCount - 1, closeCount, string, list, index + 1);
+        }
+
+        if(closeCount > openCount ) {
+            string[index] = ')';
+            generateParenthesisUtil(openCount, closeCount - 1, string, list, index + 1);
+        }
+
+    }
+
+}
+
+
+
+
+/*
+
+// time: O(2^N)
+// space: O(N)
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<> ();
+        generateParenthesisUtil(n, 0, 0, "", list);
+
+        return list;
+    }
+
+    private void generateParenthesisUtil(int n, int openCount, int closeCount, String str, List<String> list) {
+
+        if(openCount == n && closeCount == n) {
+            list.add(str);
+            return;
+        }
+
+        if(openCount < n) {
+            generateParenthesisUtil(n, openCount + 1, closeCount, str + '(', list);
+        }
+
+        if(closeCount < openCount ) {
+            generateParenthesisUtil(n, openCount, closeCount + 1, str + ')', list);
+        }
+
+    }
+
+}
+
+
+*/
