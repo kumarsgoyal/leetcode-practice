@@ -1,0 +1,61 @@
+// time: O(N^2 * K)
+// space: O(N)
+
+class Solution {
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        int[] dp = new int[arr.length];
+        Arrays.fill(dp, -1);
+        return maxSumAfterPartitioningUtil(arr, k, 0, dp);
+    }
+
+    private int maxSumAfterPartitioningUtil(int[] arr, int k, int index, int[] dp) {
+        int n = arr.length;
+        if(index == n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+
+        int sum = 0, maxSum = 0, maxNum = 0, len = 0;
+        for(int i = index; i < Math.min(index + k, n); i++) {
+            len++;
+            maxNum = Math.max(maxNum, arr[i]);
+            sum = maxNum * len + maxSumAfterPartitioningUtil(arr, k, i + 1, dp);
+            maxSum = Math.max(maxSum, sum);
+        }
+
+        dp[index] = maxSum;
+        return dp[index];
+    }
+}
+
+
+
+
+/*
+
+// time: O(2^N)
+// space: O(1)
+
+class Solution {
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        return maxSumAfterPartitioningUtil(arr, k, 0);
+    }
+
+    private int maxSumAfterPartitioningUtil(int[] arr, int k, int index) {
+        int n = arr.length;
+        if(index == n)
+            return 0;
+
+        int sum = 0, maxSum = 0, maxNum = 0, len = 0;
+        for(int i = index; i < Math.min(index + k, n); i++) {
+            len++;
+            maxNum = Math.max(maxNum, arr[i]);
+            sum = maxNum * len + maxSumAfterPartitioningUtil(arr, k, i + 1);
+            maxSum = Math.max(maxSum, sum);
+        }
+
+        return maxSum;
+    }
+}
+
+*/
