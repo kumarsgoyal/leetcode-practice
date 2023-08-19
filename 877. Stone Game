@@ -1,0 +1,71 @@
+// time: O(N ^ 3)
+// Space:(N * N * 2)
+
+
+class Solution {
+    public boolean stoneGame(int[] piles) {
+        int n = piles.length;
+        int[][][] dp = new int [n + 1][n + 1][2];
+        fillTheArray(dp);
+        return stoneGameUtil(piles, 0, n - 1, 1, dp) > 0;
+    }
+
+    private void fillTheArray(int[][][] dp) {
+        for(int[][] row : dp) {
+            for(int[] col : row) {
+                  Arrays.fill(col, -1);  
+            }
+        }
+    }
+
+    private int stoneGameUtil(int[] piles, int left, int right, int turn, int[][][] dp) {
+        if(left > right) 
+            return 0;
+        if(dp[left][right][turn] != -1)
+            return dp[left][right][turn];
+
+        if(turn == 1) {
+            int leftStones = stoneGameUtil(piles, left + 1, right, 0, dp) + piles[left];
+            int rightStones = stoneGameUtil(piles, left, right - 1, 0, dp) + piles[right];
+            dp[left][right][turn] = Math.max(leftStones, rightStones);
+            return dp[left][right][turn];
+        }
+        else {
+            int leftStones = stoneGameUtil(piles, left + 1, right, 1, dp) - piles[left];
+            int rightStones = stoneGameUtil(piles, left, right - 1, 1, dp) - piles[right];
+            dp[left][right][turn] = Math.min(leftStones, rightStones);
+            return dp[left][right][turn];
+        }
+    }
+}
+
+
+
+/*
+
+// time: O(2 ^ N)
+// space: O(1)
+
+class Solution {
+    public boolean stoneGame(int[] piles) {
+        return stoneGameUtil(piles, 0, piles.length - 1, true) > 0;
+    }
+
+    private int stoneGameUtil(int[] piles, int left, int right, boolean turn) {
+        if(left > right) 
+            return 0;
+        
+        if(turn) {
+            int leftStones = stoneGameUtil(piles, left + 1, right, !turn) + piles[left];
+            int rightStones = stoneGameUtil(piles, left, right - 1, !turn) + piles[right];
+            return Math.max(leftStones, rightStones) ;
+        }
+        else {
+            int leftStones = stoneGameUtil(piles, left + 1, right, !turn) - piles[left];
+            int rightStones = stoneGameUtil(piles, left, right - 1, !turn) - piles[right];
+            return Math.min(leftStones, rightStones);
+        }
+    }
+}
+
+*/
