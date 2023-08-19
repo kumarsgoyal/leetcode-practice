@@ -1,0 +1,108 @@
+// time: O(N * M * M)
+// space: O(1)
+
+class Solution {
+    public int countSubstrings(String s, String t) {
+        int count = 0;
+
+        for(int i = 0 ; i < s.length(); i++) {
+            for(int j = 0; j < t.length(); j++) {
+                int diff = 0;
+                int x = i;
+                int y = j;
+
+                while(x < s.length() && y < t.length()) {
+                    if(s.charAt(x) != t.charAt(y))
+                        diff++;
+                    if(diff == 1)
+                        count++;
+                    if(diff == 2)
+                        break;
+                    x++;
+                    y++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
+
+
+
+
+/*
+// time: O(N ^ 5)
+// space: O(N)
+
+class Solution {
+    public int countSubstrings(String s, String t) {
+        List<String> listS = genrateAllSubString(s);
+        List<String> listT = genrateAllSubString(t);
+        sortList(listS);
+        sortList(listT);
+
+        int count = 0;
+
+        for(String si : listS) {
+            for(String ti : listT) {
+                if(ti.length() > si.length()) 
+                    break;
+                
+                if(ti.length() == si.length())
+                    count += getCount(si, ti);
+            }
+        }
+
+        return count;
+    }
+
+    private List<String> genrateAllSubString(String s) {
+        List<String> list = new ArrayList<> ();
+
+        for(int i = 0; i < s.length(); i++) {
+            StringBuilder str = new StringBuilder("");
+            for(int j = i; j < s.length(); j++) {
+                str.append(s.charAt(j));
+                list.add(str.toString());
+            }
+        }
+
+        return list;
+    }
+
+    private void sortList(List<String> list) {
+        Collections.sort(list, new Comparator<String> () {
+            public int compare(String s1, String s2) {
+                int lengthComparison = Integer.compare(s1.length(), s2.length());
+                if (lengthComparison != 0) {
+                    return lengthComparison;
+                } else {
+                    return s1.compareTo(s2);
+                }
+            }
+        });
+    }
+
+    private int getCount(String s1, String s2) {
+        int diff = 0;
+        int i = 0, j = 0;
+
+        while(i < s1.length() && j < s2.length()) {
+            if(s1.charAt(i) != s2.charAt(j)) {
+                diff++;
+            }
+
+            if(diff > 1)
+                return 0;
+            
+            i++;
+            j++;
+        }
+
+        return (diff == 1) ? 1 : 0;
+    }
+}
+
+
+*/
