@@ -1,0 +1,39 @@
+class Solution {
+    
+    class Power {
+        int val;
+        int pow;
+        
+        Power(int n, int p) {
+            val = n;
+            pow = p;
+        }
+    }
+    
+    public int getKth(int lo, int hi, int k) {
+        List<Power> list = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<> ();
+        for(int i = lo; i <= hi; i++) {
+            int val = i;
+            int power = 0;
+            while(val != 1) {
+                if(map.containsKey(val)) {
+                    power = power + map.get(val);
+                    break;
+                }
+                if(val % 2 == 0) 
+                    val /= 2;
+                else
+                    val = val * 3 + 1;
+                power++;
+            }
+            
+            map.put(i, power);
+            list.add(new Power(i, power));
+        }
+        
+        Collections.sort(list, (a, b) -> a.pow - b.pow);
+        
+        return list.get(k - 1).val;
+    }
+}
