@@ -1,0 +1,92 @@
+// dp HashMap
+// space: O(1)
+// time: O(N)
+
+class Solution {
+    private static int LENGTH_COUNT = 26;
+
+    int leftCount = 0, rightCount = 0, count = 0;
+    int[] left = new int[LENGTH_COUNT];
+    int[] right = new int[LENGTH_COUNT];
+
+    public int numSplits(String s) {
+        fillRight(s);
+
+        for(int i = 0; i < s.length(); i++) {
+            count += calculateDiff(s, i);
+        }
+
+        return count;
+    }
+
+    private void fillRight(String s) {
+        for(int i = 0; i < s.length(); i++) {
+            right[s.charAt(i) - 'a']++;
+        }
+
+        for(int i = 0; i < LENGTH_COUNT; i++) {
+            if(right[i] != 0)
+                rightCount++;
+        }
+    }
+
+    private int calculateDiff(String s, int index) {
+        if(left[s.charAt(index) - 'a'] == 0)
+            leftCount++;
+
+        left[s.charAt(index) - 'a']++;
+        right[s.charAt(index) - 'a']--;
+
+        if(right[s.charAt(index) - 'a'] == 0)
+            rightCount--;
+        
+        return (leftCount == rightCount) ? 1 : 0;
+    }
+
+}
+
+
+/*
+
+// dp HashMap
+// space: O(N)
+// time: O(N)
+
+class Solution {
+    public int numSplits(String s) {
+        int n = s.length();
+        int count = 0;
+        Map<Character, Integer> leftFreq = new HashMap ();
+        Map<Character, Integer> rightFreq = new HashMap ();
+
+        fillTheFrequency(s , rightFreq);
+
+        for(int i = 0; i < n - 1; i++) {
+            count += calclulateSplit(i, s, leftFreq, rightFreq); 
+        }
+
+        return count;
+    }
+
+    private int calclulateSplit(int index, String str, Map<Character, Integer> leftFreq, Map<Character, Integer> rightFreq) {
+        leftFreq.put(str.charAt(index), leftFreq.getOrDefault(str.charAt(index), 0) + 1);
+
+        if(rightFreq.get(str.charAt(index)) == 1) {
+            rightFreq.remove(str.charAt(index));
+        }
+        else {
+            rightFreq.put(str.charAt(index), rightFreq.getOrDefault(str.charAt(index), 0) - 1);
+        }
+
+        return (leftFreq.size() ==  rightFreq.size()) ? 1 : 0;
+    }
+
+    private void fillTheFrequency(String str , Map<Character, Integer> rightFreq) {
+        for(int i = 0; i < str.length(); i++) {
+            rightFreq.put(str.charAt(i), rightFreq.getOrDefault(str.charAt(i), 0) + 1);
+        }
+    }
+
+}
+
+*/
