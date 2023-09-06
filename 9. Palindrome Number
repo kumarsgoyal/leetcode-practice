@@ -1,0 +1,44 @@
+// time: O(N) length of num
+// space: O(1)
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0) 
+            return false;
+        int result = 0, temp = x;
+
+        while(temp > 0) {
+            result = result * 10 + temp % 10;
+            temp = temp / 10;
+        }
+
+        return (result == x) ? true : false;
+    }
+}
+
+
+/*
+
+// space: O(N) 
+// time: O(N)
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0)
+            return false;
+        
+        String str = String.valueOf(x);
+
+        int low = 0, high = str.length() - 1;
+
+        while(low < high) {
+            if(str.charAt(low) != str.charAt(high))
+                return false;
+            low++;
+            high--;
+        }
+
+        return true;
+    }
+}
+*/
