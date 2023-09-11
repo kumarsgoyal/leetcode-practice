@@ -1,0 +1,74 @@
+time: O(N)
+space: O(1)
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int index = 0;
+        for(int i = 0; i < nums.length; i++) {
+            for(int j = i + 1; j < nums.length; j++) {
+                if(nums[i] != nums[j])
+                    break;
+                i = j;
+            }
+            nums[index++] =  nums[i];
+        }
+
+        return index;
+    }
+}
+
+
+
+
+/*
+// previous element
+// space: O(1)
+// time: O(N)
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int prevNum = -101;
+        int index = 0;
+
+        for(int i = 0; i < nums.length; i++) {
+            if(prevNum != nums[i]) {
+                nums[index++] = nums[i];
+                prevNum = nums[i];
+            }
+        }
+
+        return index;
+    }
+}
+
+*/
+
+
+
+
+
+/*
+
+// Using stack
+// time: O(N)
+// space: O(N)
+
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        Stack<Integer> stack = new Stack<> ();
+        int index = 0;
+
+        for(int i = 0; i < nums.length; i++) {
+            if(stack.empty() == true || stack.peek() != nums[i]) {
+                nums[index++] = nums[i];
+                stack.push(nums[i]);
+            }
+        }
+        stack.clear();
+        return index;
+    }
+}
+
+
+*/
