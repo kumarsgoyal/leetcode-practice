@@ -1,0 +1,89 @@
+// KMP Algorithm
+// space: O(M)
+// time: O(N + M)
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        return (haystack.length() >= needle.length()) ?  KMPAlgo(haystack, needle) : -1;
+    }
+
+    private int KMPAlgo(String haystack, String needle) {
+        int[] lps = computeLpsTbale(needle);
+
+        int i = 0, j = 0;
+        int n = haystack.length();
+        int m = needle.length();
+
+        while(i < n && j < m) {
+            if(haystack.charAt(i) == needle.charAt(j)) {
+                i++;
+                j++;
+                if(j == m) 
+                    return i - j;
+            }
+            else {
+                if(j != 0) 
+                    j = lps[j - 1];
+                else 
+                    i++;
+            }
+        }
+
+        return -1;
+    }
+
+    private int[] computeLpsTbale(String needle) {
+        int[] lps = new int[needle.length()];
+        int i = 1, j = 0;
+        lps[0] = 0; // always 0
+
+        while(i < needle.length()) {
+            if(needle.charAt(i) == needle.charAt(j)) {
+                lps[i] = ++j;
+                i++;
+            }
+            else {
+                if(j == 0) {
+                    lps[i] = j;
+                    i++;
+                }
+                else {
+                    j = lps[j - 1];
+                }
+            }
+        }
+
+        return lps;
+    }
+}
+
+
+
+/*
+
+// time: O(N * M) N is length of haystack and M is length of needle
+// space: O(1)
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int n1 = haystack.length();
+        int n2 = needle.length();
+
+        for(int i = 0; i < n1; i++) {
+            int index = i;
+            for(int j = 0; j < n2; j++) {
+                if(index < n1 && haystack.charAt(index) == needle.charAt(j)) 
+                    index++;
+                else 
+                    break;
+            }
+
+            if((index - i) == n2)
+                return i;
+        }
+
+        return -1;
+    }
+}
+
+*/
