@@ -1,0 +1,78 @@
+// space: O(1)
+// time: O(N)
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        return removeNthFromEndUtil(head, n);
+    }
+
+    private ListNode removeNthFromEndUtil(ListNode head, int n) {
+        ListNode result = new ListNode(0, head);
+        ListNode prev = result;
+        ListNode curr = head;
+        ListNode ptr = head;
+
+        while(n > 0 && curr != null) {
+            n--;
+            curr = curr.next;
+        }
+
+        while(curr != null) {
+            curr = curr.next; 
+            prev = ptr;
+            ptr = ptr.next;
+        }
+
+        prev.next = prev.next.next;
+
+        return result.next;
+    }
+}
+
+
+
+
+/*
+
+// space: O(1)
+// time: O(1)
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        head = reverse(head);
+
+        if(n == 1)
+            return reverse(head.next);
+        
+        return reverse(removeNthFromEndUtil(head, n));
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next = null;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    private ListNode removeNthFromEndUtil(ListNode head, int n) {
+        ListNode curr = head;
+
+        while(n > 2) {
+            n--;
+            curr = curr.next;
+        }
+
+        curr.next = curr.next.next;
+        return head;
+    }
+}
+
+*/
