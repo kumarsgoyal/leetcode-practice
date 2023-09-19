@@ -44,12 +44,44 @@ class Solution {
 */
 
 
+/*
+// recursion and memorization
+// time: O(N)
+// space: O(N)
+
+
+class Solution {
+    public int climbStairs(int n) {
+        if(n < 0)
+            return 0;
+        if(n == 0 || n == 1)
+            return 1;
+
+        int[] dp = new int[n + 1];
+        return climbStairsUtil(n - 1, dp) + climbStairsUtil(n - 2, dp);
+    }
+
+
+    private int climbStairsUtil(int n, int[] dp) {
+        if(n < 0)
+            return 0;
+        if(n == 0 || n == 1)
+            return 1;
+        if(dp[n] != 0)
+            return dp[n];
+
+        dp[n] = climbStairsUtil(n - 1, dp) + climbStairsUtil(n - 2, dp);
+        return dp[n];
+    }
+}
+*/
+
 
 /*
 
-// Recursion
-// space: O(1)
+// recursion
 // time: O(2^N)
+// space: O(1)
 
 class Solution {
     public int climbStairs(int n) {
