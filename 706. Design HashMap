@@ -1,0 +1,74 @@
+class Node {
+    Node[] digit;
+    int number;
+
+    public Node(int size) {
+        digit = new Node[size];
+        number = -1;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+}
+
+
+class MyHashMap {
+
+    private Node root;
+    private int size;
+
+    public MyHashMap() {
+        size = 10;
+        root = new Node(size);
+    }
+    
+    public void put(int key, int value) {
+        Node curr = root;
+        do {
+            int rem = key % size;
+            key = key / size;
+            if(curr.digit[rem] == null) 
+                curr.digit[rem] = new Node(size);
+            curr = curr.digit[rem];
+        } while(key > 0);
+
+        curr.number = value;
+    }
+    
+    public void remove(int key) {
+        Node curr = root;
+        do {
+            curr = curr.digit[key % size];
+            key = key / size;
+            if(curr == null) 
+                return;
+        } while(key > 0);
+
+        curr.number = -1;
+    }
+    
+    public int get(int key) {
+        Node curr = root;
+        do {
+            curr = curr.digit[key % size];
+            key = key / size;
+        } while(curr != null && key > 0);
+
+        return (curr != null && curr.number != -1) ? curr.number : -1;
+    }
+
+}
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap obj = new MyHashMap();
+ * obj.put(key,value);
+ * int param_2 = obj.get(key);
+ * obj.remove(key);
+ */
