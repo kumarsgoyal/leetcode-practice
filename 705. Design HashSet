@@ -1,0 +1,72 @@
+class Node {
+    Node[] digit;
+    boolean isNumber;
+
+    public Node(int size) {
+        digit = new Node[size];
+        isNumber = false;
+    }
+
+    public void setIsNumber(boolean flag) {
+        isNumber = flag;
+    }
+
+    public boolean getIsNumber() {
+        return isNumber;
+    }
+
+}
+
+class MyHashSet {
+
+    private Node root;
+    private int size;
+
+    public MyHashSet() {
+        size = 9;
+        root = new Node(size);
+    }
+    
+    public void add(int key) {
+        Node curr = root;
+        do {
+            int rem = key % size;
+            key = key / size;
+            if(curr.digit[rem] == null) 
+                curr.digit[rem] = new Node(size);
+            curr = curr.digit[rem];
+        } while(key > 0);
+
+        curr.isNumber = true;
+    }
+    
+    public void remove(int key) {
+        Node curr = root;
+        do {
+            curr = curr.digit[key % size];
+            key = key / size;
+            if(curr == null) 
+                return;
+        } while(key > 0);
+
+        curr.isNumber = false;
+    }
+    
+    public boolean contains(int key) {
+        Node curr = root;
+        do {
+            curr = curr.digit[key % size];
+            key = key / size;
+        } while(curr != null && key > 0);
+
+        return curr != null && curr.isNumber;
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
