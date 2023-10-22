@@ -1,20 +1,26 @@
 class BrowserHistory {
+    // Inner class representing a node in the doubly linked list
     class Node {
         String url;
         Node prev;
         Node next;
+        
+        // Constructor to create a node with the given URL
         public Node(String url) {
             this.url = url;
             prev = next = null;
         }
     }
 
+    // Reference to the current node representing the current page
     private Node curr;
 
+    // Constructor to initialize the browser history with a homepage
     public BrowserHistory(String homepage) {
         curr = new Node(homepage);
     }
     
+    // Method to visit a new URL and add it to the history
     public void visit(String url) {
         Node newNode = new Node(url);
         curr.next = newNode;
@@ -22,6 +28,7 @@ class BrowserHistory {
         curr = newNode;
     }
     
+    // Method to navigate back in the history by a certain number of steps
     public String back(int steps) {
         while(curr.prev != null && steps > 0) {
             curr = curr.prev;
@@ -30,6 +37,7 @@ class BrowserHistory {
         return curr.url;
     }
     
+    // Method to navigate forward in the history by a certain number of steps
     public String forward(int steps) {
         while(curr.next != null && steps > 0) {
             curr = curr.next;
