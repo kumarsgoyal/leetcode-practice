@@ -1,0 +1,56 @@
+// space: O(m * n)
+// time: O(m * n)
+
+
+class Solution {
+    public int[][] spiralMatrix(int m, int n, ListNode head) {
+        // Create the result matrix with dimensions m x n
+        int[][] result = new int[m][n];
+        
+        // Initialize pointers for the four boundaries of the spiral
+        int left = 0, top = 0, bottom = m - 1, right = n - 1;
+        
+        // Start from the head of the linked list
+        ListNode curr = head;
+
+        // Iterate while there are positions to fill in the spiral
+        while (left <= right && top <= bottom) {
+            // Traverse the top row from left to right
+            for (int i = left; i <= right; i++) {
+                result[top][i] = (curr != null) ? curr.val : -1;
+                if (curr != null) curr = curr.next;
+            }
+            top++;
+
+            // Traverse the right column from top to bottom
+            for (int i = top; i <= bottom; i++) {
+                result[i][right] = (curr != null) ? curr.val : -1;
+                if (curr != null) curr = curr.next;
+            }
+            right--;
+
+            // Check if there is a bottom row to traverse
+            if (top <= bottom) {
+                // Traverse the bottom row from right to left
+                for (int i = right; i >= left; i--) {
+                    result[bottom][i] = (curr != null) ? curr.val : -1;
+                    if (curr != null) curr = curr.next;
+                }
+                bottom--;
+            }
+
+            // Check if there is a left column to traverse
+            if (left <= right) {
+                // Traverse the left column from bottom to top
+                for (int i = bottom; i >= top; i--) {
+                    result[i][left] = (curr != null) ? curr.val : -1;
+                    if (curr != null) curr = curr.next;
+                }
+                left++;
+            }
+        }
+
+        // The result matrix is now filled with values from the linked list
+        return result;
+    }
+}
