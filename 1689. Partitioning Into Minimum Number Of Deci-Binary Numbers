@@ -1,0 +1,13 @@
+class Solution {
+    public int minPartitions(String n) {
+        char[] nArr = n.toCharArray();
+        int ans = 0;
+
+        for(char c : nArr) {
+            if(ans < (c - '0'))
+                ans = c - '0';
+        }
+
+        return ans;
+    }
+}
