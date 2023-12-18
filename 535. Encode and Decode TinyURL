@@ -1,0 +1,27 @@
+public class Codec {
+
+    private Map<String, String> storage;
+    private Integer id;
+
+    public Codec() {
+        this.storage = new HashMap<> ();
+        this.id = 0;
+    }
+
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) {
+        String shortUrl = id.toString();
+        id++;
+        storage.put(shortUrl, longUrl);
+        return shortUrl;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+        return storage.get(shortUrl);
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));
