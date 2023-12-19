@@ -1,0 +1,30 @@
+class Solution {
+    public int garbageCollection(String[] garbage, int[] travel) {
+        int result = 0;
+        int iM = 0, iP = 0, iG = 0 ;
+
+        for(int i = 0; i < garbage.length; i++) {
+            char[] temp = garbage[i].toCharArray();
+            for(int j = 0; j < temp.length; j++) {
+                if(temp[j] == 'M')
+                    iM = i;
+                else if(temp[j] == 'P')
+                    iP = i;
+                else 
+                    iG = i;
+            }
+
+            result += garbage[i].length();
+        }
+
+        for(int i = 1; i < travel.length; i++) {
+            travel[i] += travel[i - 1];
+        }
+        
+        result += (iM != 0) ? travel[iM - 1] : 0;
+        result += (iP != 0) ? travel[iP - 1] : 0;
+        result += (iG != 0) ? travel[iG - 1] : 0;
+
+        return result;
+    }
+}
