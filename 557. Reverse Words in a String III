@@ -1,0 +1,22 @@
+class Solution {
+    public String reverseWords(String s) {
+        char[] str = s.toCharArray();
+        StringBuilder result = new StringBuilder("");
+
+        for(int i = 0; i < str.length; ) {
+            StringBuilder temp = new StringBuilder("");
+            while(i < str.length && str[i] != ' ') {
+                temp.append(str[i]);
+                i++;
+            }
+            result.append(temp.reverse());
+            
+            if(i < str.length && str[i] == ' ') {
+                result.append(" ");
+                i++;
+            }
+        }
+
+        return result.toString();
+    }
+}
