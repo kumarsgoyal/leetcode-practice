@@ -1,0 +1,22 @@
+class Solution {
+    public int countConsistentStrings(String allowed, String[] words) {
+        int[] freq = new int[26];
+
+        for(char c : allowed.toCharArray()) {
+            freq[c - 'a'] = 1;
+        }
+
+        int count = 0;
+        for(String word : words) {
+            count++;
+            for(char c : word.toCharArray()) {
+                if(freq[c - 'a'] == 0) {
+                    count--;
+                    break;
+                }
+            }
+        }
+
+        return count;
+    }
+}
