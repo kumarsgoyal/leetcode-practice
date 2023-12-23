@@ -1,0 +1,19 @@
+class Solution {
+    public String makeSmallestPalindrome(String s) {
+        char[] arr = s.toCharArray();
+        int start = 0, end = arr.length - 1;
+        
+        while(start < end) {
+            if(arr[start] != arr[end]) {
+                if(arr[start] < arr[end]) 
+                    arr[end] = arr[start];
+                else 
+                    arr[start] = arr[end];
+            }
+            start++;
+            end--;
+        }
+
+        return new String(arr);
+    }
+}
