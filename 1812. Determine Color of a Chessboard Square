@@ -1,0 +1,10 @@
+class Solution {
+    public boolean squareIsWhite(String coordinates) {
+        boolean[] store = {false, true, false, true, false, true, false, true};
+
+        int index1 = coordinates.charAt(0) - 'a';
+        int index2 = coordinates.charAt(1) - '0';
+
+        return index2 % 2 == 1 ? store[index1] : !store[index1];
+    }
+}
