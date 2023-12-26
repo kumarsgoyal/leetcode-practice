@@ -1,0 +1,18 @@
+class Solution {
+    public boolean judgeCircle(String moves) {
+        int xAxis = 0, yAxis = 0;
+
+        for(char c : moves.toCharArray()) {
+            if(c == 'U')
+                yAxis++;
+            else if(c == 'D')
+                yAxis--;
+            else if(c == 'L')
+                xAxis--;
+            else 
+                xAxis++;
+        }
+        
+        return xAxis == 0 && yAxis == 0;
+    }
+}
