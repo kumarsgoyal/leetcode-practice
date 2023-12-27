@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isSumEqual(String firstWord, String secondWord, String targetWord) {
+        int num1 = convertToNumber(firstWord);
+        int num2 = convertToNumber(secondWord);
+        int num3 = convertToNumber(targetWord);
+
+        if((num1 + num2) == num3)
+            return true;
+        return false;
+    }
+
+    private int convertToNumber(String word) {
+        int num = 0;
+        for(char c : word.toCharArray()) {
+            num = num * 10 + (c - 'a');
+        }
+
+        return num;
+    }
+
+}
