@@ -1,0 +1,17 @@
+class Solution {
+    public int countGoodSubstrings(String s) {
+        char[] arr = s.toCharArray();
+        int start = 0, end = 2;
+        int count = 0;
+
+        while(end < s.length()) {
+            if(arr[start] != arr[start + 1] && arr[start] != arr[end] && arr[start + 1] != arr[end]) {
+                count++;
+            }
+            start++;
+            end++;
+        }
+
+        return count;
+    }
+}
