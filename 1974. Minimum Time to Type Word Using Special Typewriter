@@ -1,0 +1,15 @@
+class Solution {
+    public int minTimeToType(String word) {
+        char prevChar = 'a';
+        int totalTime = word.length();
+
+        for(char c : word.toCharArray()) {
+            char currChar = c;
+            int diff = Math.abs(currChar - prevChar);
+            totalTime += Math.min(diff, 26 - diff);
+            prevChar = currChar;
+        }
+
+        return totalTime;
+    }
+}
