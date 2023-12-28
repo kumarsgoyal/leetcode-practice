@@ -1,0 +1,36 @@
+class Solution {
+    public String[] findWords(String[] words) {
+        String row0 = "qwertyuiop";
+        String row1 = "asdfghjkl";
+        String row2 = "zxcvbnm";
+        int[] index = new int[26];
+
+        List<String> list = new ArrayList<> ();
+
+        for(char c : row1.toCharArray()) {
+            index[c - 'a'] = 1;
+        }
+
+        for(char c : row2.toCharArray()) {
+            index[c - 'a'] = 2;
+        }
+
+        for(String word : words) {
+            
+            int ind = (word.charAt(0) >= 'A' && word.charAt(0) <= 'Z') ? index[word.charAt(0) - 'A'] : index[word.charAt(0) - 'a'];
+
+            boolean flag = true;
+            for(char c : word.toLowerCase().toCharArray()) {
+                if(ind != index[c - 'a']) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if(flag == true)
+                list.add(word);
+        }
+
+        return list.toArray(new String[0]);
+    }
+}
