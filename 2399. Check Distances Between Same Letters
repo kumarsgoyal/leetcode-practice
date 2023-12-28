@@ -1,0 +1,22 @@
+class Solution {
+    public boolean checkDistances(String s, int[] distance) {
+        int[][] index = new int[2][26];
+        Arrays.fill(index[0], -1);
+        Arrays.fill(index[1], -1);
+
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(index[0][c - 'a'] == -1)  
+                index[0][c - 'a'] = i;
+            else 
+                index[1][c - 'a'] = i;
+        }
+
+        for(int i = 0; i < 26; i++) {
+            if(index[0][i] != -1 && distance[i] != (index[1][i] - index[0][i] - 1))
+                    return false;
+        }
+
+        return true;
+    }
+}
