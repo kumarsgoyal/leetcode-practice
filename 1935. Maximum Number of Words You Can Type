@@ -1,0 +1,26 @@
+class Solution {
+    public int canBeTypedWords(String text, String brokenLetters) {
+        String[] arr = text.split(" ");
+        boolean[] set = new boolean[26];
+        int count = 0;
+
+        for(char c : brokenLetters.toCharArray()) {
+            set[c - 'a'] = true;
+        }
+
+        for(String s : arr) {
+            boolean flag = true;
+            for(char c : s.toCharArray()) {
+                if(set[c - 'a']) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if(flag == true)
+                count++;
+        }
+
+        return count;
+    }
+}
