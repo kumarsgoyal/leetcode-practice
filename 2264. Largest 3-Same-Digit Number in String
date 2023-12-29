@@ -1,0 +1,17 @@
+class Solution {
+    public String largestGoodInteger(String nums) {
+        int index = -1;
+        char[] num = nums.toCharArray();
+
+        for(int i = 1; i < num.length - 1; i++) {
+            if(num[i] == num[i + 1] && num[i] == num[i - 1]) {
+                if(index != -1)
+                    index = num[index] - '0' > num[i] - '0' ? index : i;
+                else 
+                    index = i;
+            }
+        }
+        
+        return (index == -1) ? "" : nums.substring(index - 1, index + 2);
+    }
+}
