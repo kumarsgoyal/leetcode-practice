@@ -1,0 +1,33 @@
+class Solution {
+    public int numUniqueEmails(String[] emails) {
+        Set<String> set = new HashSet<> ();
+
+        for(int i = 0; i < emails.length; i++) {
+            StringBuilder temp = new StringBuilder("");
+            boolean flag1 = true, flag2 = true;
+
+            for(char c : emails[i].toCharArray()) {
+                if(flag1) {
+                    if(c == '@') {
+                        temp.append(c);
+                        flag1 = false;
+                    }
+                    else if(flag2 == true && c >= 'a' && c <= 'z') {
+                        temp.append(c);
+                    }
+                    else if(c == '+') {
+                        flag2 = false;
+                    }
+
+                }   
+                else {
+                    temp.append(c);
+                }
+            }
+
+            set.add(temp.toString());
+        }
+
+        return set.size();
+    }
+}
