@@ -1,0 +1,31 @@
+class Solution {
+    public String toGoatLatin(String sentence) {
+        StringBuilder result = new StringBuilder("");
+        String[] splits = sentence.split(" ");
+        StringBuilder aFreq = new StringBuilder("a");
+
+        for(int i = 0; i < splits.length; i++) {
+            if(splits[i].charAt(0) == 'a' || splits[i].charAt(0) == 'A' || splits[i].charAt(0) == 'e' || splits[i].charAt(0) == 'E' || splits[i].charAt(0) == 'i' || splits[i].charAt(0) == 'I' || splits[i].charAt(0) == 'o' || splits[i].charAt(0) == 'O' || splits[i].charAt(0) == 'u' || splits[i].charAt(0) == 'U' ) {
+                result.append(splits[i]);
+            }
+            else {
+                if(splits[i].length() == 1) {
+                    result.append(splits[i]);
+                }
+                else {
+                    result.append(splits[i].substring(1, splits[i].length()));
+                    result.append(splits[i].charAt(0));
+                }
+            }
+            result.append("ma");
+            result.append(aFreq);
+            aFreq.append("a");
+            
+            if(i != (splits.length - 1))
+            result.append(" ");
+        }
+
+
+        return result.toString();
+    }
+}
