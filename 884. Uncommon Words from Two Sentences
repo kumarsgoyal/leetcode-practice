@@ -1,0 +1,33 @@
+class Solution {
+    public String[] uncommonFromSentences(String s1, String s2) {
+        Map<String, Integer> map = new HashMap<> ();
+        int count = 0;
+
+        for(String s : s1.split(" ")) {
+            if(map.containsKey(s) == false)
+                count++;
+            else if(map.get(s) == 1)
+                count--;
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+
+        for(String s : s2.split(" ")) {
+            if(map.containsKey(s) == false)
+                count++;
+            else if(map.get(s) == 1)
+                count--;
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+
+        String[] list = new String[count];
+        int index = 0;
+
+        for(Map.Entry<String, Integer> entry : map.entrySet()) {
+            if(entry.getValue() == 1) {
+                list[index++] = entry.getKey();
+            }
+        }
+
+        return list;
+    }
+}
