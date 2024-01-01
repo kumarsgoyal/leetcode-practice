@@ -1,0 +1,24 @@
+class Solution {
+    public String[] divideString(String s, int k, char fill) {
+        int div = s.length() / k;
+        int rem = (s.length() % k == 0) ? 0 : 1;
+        int size = div + rem;
+        int index = 0;    
+
+        String[] result = new String[size];
+    
+        for(int i = 0; i < s.length(); i += k) {
+            if(index < div) {
+                result[index++] = s.substring(i, i + k);
+            }
+            else {
+                StringBuilder temp = new StringBuilder(s.substring(i, s.length()));
+                while(temp.length() < k) 
+                    temp.append(String.valueOf(fill));
+                    result[index++] = temp.toString();
+            }
+        }
+
+        return result;
+    }
+}
