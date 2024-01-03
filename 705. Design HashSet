@@ -70,3 +70,44 @@ class MyHashSet {
  * obj.remove(key);
  * boolean param_3 = obj.contains(key);
  */
+
+
+
+
+
+
+/*
+
+
+class MyHashSet {
+    private int size = 100;
+    private int max = 1000002;
+    private int[] bucket;
+
+    public MyHashSet() {    
+        bucket = new int[size];
+    }
+    
+    public void add(int key) {
+        if(key > bucket.length) {
+            size = Math.min(2 * key, max);
+            int[] newBucket = new int[size];
+            for(int i = 0; i < bucket.length; i++) {
+                newBucket[i] = bucket[i];
+            }
+            bucket = newBucket;
+        }
+        bucket[key] = 1;
+    }
+    
+    public void remove(int key) {
+        if(key <= bucket.length)
+            bucket[key] = 0;
+    }
+    
+    public boolean contains(int key) {
+        return (key <= bucket.length) && bucket[key] == 1;
+    }
+}
+
+*/
