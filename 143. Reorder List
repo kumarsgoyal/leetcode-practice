@@ -1,0 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head.next != null) {
+            ListNode [] lists = splitTheList(head);
+            lists[1] = reverse(lists[1]);
+            mergeList(lists);
+        }
+    }
+
+    private ListNode[] splitTheList(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+        while(fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(prev != null)
+            prev.next = null;
+        return new ListNode[] {head, slow};
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode curr = head;
+        ListNode next = null;
+        ListNode prev = null;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    private void mergeList(ListNode[] lists) {
+        ListNode dummy = new ListNode(0);
+        ListNode ptr = dummy;
+        ListNode list1 = lists[0];
+        ListNode list2 = lists[1];
+
+        while(list1 != null && list2 != null) {
+            ptr.next = list1;
+            list1 = list1.next;
+            ptr = ptr.next;
+
+            ptr.next = list2;
+            list2 = list2.next;
+            ptr = ptr.next;
+        }
+
+    }
+}
