@@ -1,0 +1,111 @@
+class Twitter {
+
+    class Tweet {
+        private int id;
+        private int tweetId;
+        private int userId;
+        public Tweet(int id, int tweetId, int userId) {
+            this.id = id;
+            this.tweetId = tweetId;
+            this.userId = userId;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public int getTweetId() {
+            return tweetId;
+        }
+    }
+
+    class Node {
+        private Node next;
+        private Tweet tweet;
+        
+        public Node(Tweet tweet) {
+            this.tweet = tweet;
+        }
+
+        public Node(Tweet tweet, Node next) {
+            this.tweet = tweet;
+            this.next = next;
+        }
+
+        public Tweet getTweet() {
+            return tweet;
+        }
+    }
+
+    private Map<Integer, Set<Integer>> users;
+    private Node timeLine;
+    private int id;
+    private int tweetCount;
+
+
+    public Twitter() {
+        users = new HashMap<> ();
+        id = 0;
+        tweetCount = 10;
+    }
+    
+    public void postTweet(int userId, int tweetId) {
+        Tweet tweet = new Tweet(++id, tweetId, userId);
+        timeLine = new Node(tweet, timeLine);
+    }
+    
+    public List<Integer> getNewsFeed(int userId) {
+        List<Integer> newsFeed = new ArrayList<>();
+
+        Node currTweet = timeLine;
+        Set<Integer> following = users.getOrDefault(userId, null);
+
+        while(currTweet != null && newsFeed.size() < tweetCount) {
+            int userIdOfTweet = currTweet.getTweet().getUserId();
+            if((following != null && following.contains(userIdOfTweet)) ||
+             userIdOfTweet == userId) {
+                newsFeed.add(currTweet.getTweet().getTweetId());
+            }
+
+            currTweet = currTweet.next;
+        }
+
+        return newsFeed;
+    }
+    
+    public void follow(int followerId, int followeeId) {
+        Set<Integer> currUser = users.getOrDefault(followerId, null);
+        
+        if(currUser != null) {
+            currUser.add(followeeId);
+            return;
+        }
+        
+        currUser = new HashSet<> ();
+        currUser.add(followeeId);
+        users.put(followerId, currUser);
+    }
+    
+    public void unfollow(int followerId, int followeeId) {
+        Set<Integer> currUser = users.getOrDefault(followerId, null);
+        
+        if(currUser == null) {
+            return;
+        }
+        
+        currUser.remove(followeeId);
+    }
+}
+
+/**
+ * Your Twitter object will be instantiated and called as such:
+ * Twitter obj = new Twitter();
+ * obj.postTweet(userId,tweetId);
+ * List<Integer> param_2 = obj.getNewsFeed(userId);
+ * obj.follow(followerId,followeeId);
+ * obj.unfollow(followerId,followeeId);
+ */
