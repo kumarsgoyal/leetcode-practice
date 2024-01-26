@@ -1,0 +1,104 @@
+class FrontMiddleBackQueue {
+    private Deque<Integer> d1, d2;
+    private int n1, n2;
+
+    public FrontMiddleBackQueue() {
+        d1 = new LinkedList<>();
+        d2 = new LinkedList<>();
+        n1 = n2 = 0;
+    }
+
+    public void pushFront(int val) {
+        if(n1 == n2) {
+            d1.addFirst(val);
+            n1++;
+        }
+        else {
+            d1.addFirst(val);
+            d2.addFirst(d1.removeLast());
+            n2++;
+        }
+    }
+    
+    public void pushMiddle(int val) {
+        if(n1 == n2) {
+            d1.addLast(val);
+            n1++;
+        }
+        else {
+            d2.addFirst(d1.removeLast());
+            d1.addLast(val);
+            n2++;
+        }
+    }
+    
+    public void pushBack(int val) {
+        if(n1 == n2) {
+            d2.addLast(val);
+            d1.addLast(d2.removeFirst());
+            n1++;
+        }
+        else {
+            d2.addLast(val);
+            n2++;
+        }
+    }
+    
+    public int popFront() {
+        if(n1 == 0 && n2 == 0)
+            return -1;
+        int ans = d1.removeFirst();
+        n1--;
+        if(n1 < n2) {
+            d1.addLast(d2.removeFirst());
+            n2--;
+            n1++;
+        }
+        return ans;
+    }
+    
+    public int popMiddle() {
+        if(n1 == 0 && n2 == 0)
+            return -1;
+        int ans = d1.removeLast();
+        n1--;
+        if(n1 < n2) {
+            d1.addLast(d2.removeFirst());
+            n2--;
+            n1++;
+        }
+        return ans;
+    }
+    
+    public int popBack() {
+        if(n1 == 0 && n2 == 0) {
+            return -1;
+        }
+        else if(n2 == 0) {
+            int ans = d1.removeLast();
+            n1--;
+            return ans;
+        }
+        else {
+            int ans = d2.removeLast();
+            n2--;
+            if((n2 + 1) < n1) {
+                d2.addFirst(d1.removeLast());
+                n1--;
+                n2++;
+            }
+            return ans;
+        }
+    }
+}
+
+/**
+ * Your FrontMiddleBackQueue object will be instantiated and called as such:
+ * FrontMiddleBackQueue obj = new FrontMiddleBackQueue();
+ * obj.pushFront(val);
+ * obj.pushMiddle(val);
+ * obj.pushBack(val);
+ * int param_4 = obj.popFront();
+ * int param_5 = obj.popMiddle();
+ * int param_6 = obj.popBack();
+ */
