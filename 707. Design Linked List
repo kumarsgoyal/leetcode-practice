@@ -1,0 +1,142 @@
+class MyLinkedList {
+
+    class Node {
+        int val;
+        Node prev;
+        Node next;
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+
+    private Node head;
+    private Node tail;
+    private int count;
+
+
+    public MyLinkedList() {
+        head = tail = null;
+        count = 0;
+    }
+    
+    public int get(int index) {
+        if(index >= count) 
+            return -1;
+        return index < Math.abs(count - index) ? iterateFromHead(index).val : iterateFromTail(count - index - 1).val;
+    }
+    
+    public void addAtHead(int val) {
+        Node temp = new Node(val);
+        if(count == 0) {
+            head = tail = temp;
+        } 
+        else {
+            temp.next = head;
+            head.prev = temp;
+            head = temp;
+        }
+        count++;
+    }
+    
+    public void addAtTail(int val) {
+       Node temp = new Node(val);
+        if(count == 0) {
+            head = tail = temp;
+        } 
+        else {
+            temp.prev = tail;
+            tail.next = temp;
+            tail = temp;
+        }
+        count++;
+    }
+    
+    public void addAtIndex(int index, int val) {
+        if(index > count) 
+            return;
+        
+        Node temp = new Node(val);
+        if(index == 0 && head == null) {
+            head = tail = temp;
+        }
+        else if(index == 0) {
+            temp.next = head;
+            head.prev = temp;
+            head = temp;
+        }
+        else if(index == count) {
+            tail.next = temp;
+            temp.prev = tail;
+            tail = temp;
+        }
+        else {
+            Node curr = index < Math.abs(count - index) ? iterateFromHead(index) : iterateFromTail(count - index - 1);
+            temp.next = curr;
+            temp.prev = curr.prev;
+            curr.prev.next = temp;
+            curr.prev = temp;
+        }
+        count++;
+    }
+    
+    public void deleteAtIndex(int index) {
+        if(index >= count)
+            return;
+        if(index == 0 && count == 1) {
+            head = tail = null;
+        }
+        else if(index == 0) {
+            head = head.next;
+            head.prev = null;
+        }
+        else if(index == (count - 1)) {
+            tail = tail.prev;
+            tail.next = null;
+        }
+        else {
+            Node curr = Math.abs(0 - index) < Math.abs(count - index) ? iterateFromHead(index) : iterateFromTail(count - index - 1);
+            curr.next.prev = curr.prev;
+            curr.prev.next = curr.next;
+        }
+        count--;
+    }
+
+    private Node iterateFromTail(int index) {
+        int countIndex = 0;
+        Node curr = tail;
+
+        while(curr != null) {
+            if(countIndex == index) {
+                return curr;
+            }
+            countIndex++;
+            curr = curr.prev;
+        }
+        return null;
+    }
+
+    private Node iterateFromHead(int index) {
+        int countIndex = 0;
+        Node curr = head;
+
+        while(curr != null) {
+            if(countIndex == index) {
+                return curr;
+            }
+            countIndex++;
+            curr = curr.next;
+        }
+        return null;
+    }
+
+}
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * MyLinkedList obj = new MyLinkedList();
+ * int param_1 = obj.get(index);
+ * obj.addAtHead(val);
+ * obj.addAtTail(val);
+ * obj.addAtIndex(index,val);
+ * obj.deleteAtIndex(index);
+ */
