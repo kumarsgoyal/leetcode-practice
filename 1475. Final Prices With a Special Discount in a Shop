@@ -1,0 +1,23 @@
+class Solution {
+    public int[] finalPrices(int[] prices) {
+        int[] result = getNextSmallerElement(prices);
+
+        for(int i = 0; i < prices.length; i++) {
+            result[i] = prices[i] - result[i];
+        }
+
+        return result;
+    }
+
+    private int[] getNextSmallerElement(int[] prices) {
+        int[] result = new int[prices.length];
+        Stack<Integer> stack = new Stack<>();
+        for(int i = 0; i < prices.length; i++) {
+            while(!stack.empty() && prices[stack.peek()] >= prices[i])
+                result[stack.pop()] = prices[i];
+            stack.push(i);
+        }
+
+        return result;
+    }
+}
