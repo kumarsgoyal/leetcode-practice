@@ -1,0 +1,29 @@
+class Solution {
+    public String makeGood(String s) {
+        Stack<Character> stack = new Stack<> ();
+        StringBuilder result = new StringBuilder("");
+
+        for(char c : s.toCharArray()) {
+            if(!stack.empty() && isEqual(stack.peek(), c))
+                stack.pop();
+            else 
+                stack.push(c);
+        }
+
+        while(!stack.empty()) {
+            result.append(stack.pop());
+        }
+        
+        return result.reverse().toString();
+    }
+
+    private boolean isEqual(char a, char b) {
+        if(a >= 'a' && a <= 'z' && (a - 32) == b) {
+            return true;
+        }
+        else if(a >= 'A' && a <= 'Z' && (a + 32) == b){
+            return true;
+        }
+        return false;
+    }
+}
