@@ -1,0 +1,27 @@
+class Solution {
+    public int countStudents(int[] students, int[] sandwiches) {
+        int index = 0, count = 0;
+        Queue<Integer> que = new LinkedList<> ();
+        
+        for(int num : students) {
+            que.add(num);
+        }
+
+        while(index < sandwiches.length) {
+            if(count > que.size())
+                return que.size();
+
+            if(que.peek() == sandwiches[index]) {
+                que.remove();
+                index++;
+                count = 0;
+            }
+            else {
+                que.add(que.remove());
+                count++;
+            }
+        }
+
+        return 0;
+    }
+}
