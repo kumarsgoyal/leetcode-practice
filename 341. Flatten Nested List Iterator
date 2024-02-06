@@ -16,33 +16,29 @@
  * }
  */
 public class NestedIterator implements Iterator<Integer> {
-    Queue<Integer> que = new LinkedList<> ();
+    Queue<Integer> que;
 
     public NestedIterator(List<NestedInteger> nestedList) {
+        que = new LinkedList<> ();
         buildQueue(nestedList);
     }
 
     @Override
     public Integer next() {
-        return (hasNext() == true) ? que.remove() : -1;
+        return que.poll();
     }
 
     @Override
     public boolean hasNext() {
-        return (que.isEmpty() == true) ? false : true;
+        return !que.isEmpty();
     }
 
     private void buildQueue(List<NestedInteger> nestedList) {
-        Iterator<NestedInteger> it = nestedList.iterator();
-
-        while(it.hasNext()) {
-            NestedInteger temp = it.next();
-            if(temp.isInteger()) {
-                que.add(temp.getInteger());
-            }
-            else {
-                buildQueue(temp.getList());
-            }
+        for(NestedInteger nestedElement : nestedList) {
+            if(nestedElement.isInteger()) 
+                que.add(nestedElement.getInteger());
+            else 
+                buildQueue(nestedElement.getList());
         }
     }
 }
