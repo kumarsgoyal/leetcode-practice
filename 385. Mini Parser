@@ -44,10 +44,9 @@ class Solution {
                 index = i + 1;
             }
             else if(c == ',') {
-                if(s.charAt(i - 1) != ']') {
-                    String num = s.substring(index, i);
+                String num = s.substring(index, i);
+                if(!num.isEmpty())
                     stack.peek().add(new NestedInteger(Integer.valueOf(num)));
-                }
                 index = i + 1;
             }
             else if(c == ']') {     
