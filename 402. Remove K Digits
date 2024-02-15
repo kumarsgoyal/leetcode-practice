@@ -1,0 +1,28 @@
+class Solution {
+    public String removeKdigits(String num, int k) {
+        if (k == num.length()) {
+            return "0";
+        }
+
+        char[] stack = new char[num.length()];
+        int index = -1;
+        int count = k;
+
+        for (char c : num.toCharArray()) {
+            while (count > 0 && index >= 0 && stack[index] > c) {
+                index--;
+                count--;
+            }
+            index++;
+            stack[index] = c;
+        }
+
+        int stringStartWithoutZeroes = 0;
+
+        while (stack[stringStartWithoutZeroes] == '0' && stringStartWithoutZeroes < num.length() - k - 1) {
+            stringStartWithoutZeroes++;
+        }
+
+        return String.valueOf(stack, stringStartWithoutZeroes, num.length() - k - stringStartWithoutZeroes);
+    }
+}
