@@ -1,0 +1,49 @@
+class Solution {
+    class Log {
+        private int id;
+        private boolean isStart;
+        private int time;
+
+        public Log(String log) {
+            String[]str = log.split(":");
+            
+            id = Integer.valueOf(str[0]);
+            isStart = "start".equals(str[1]);
+            time = Integer.valueOf(str[2]);
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public boolean isStart() {
+            return isStart;
+        }
+
+        public int getTime() {
+            return time;
+        }
+    }
+
+    public int[] exclusiveTime(int n, List<String> logs) {
+        Stack<Log> stack = new Stack<> ();
+        int[] result = new int[n];
+
+        for(String s : logs) {
+            Log log = new Log(s);
+            
+            if(log.isStart()) {
+                stack.push(log);
+            }
+            else {
+                Log top = stack.pop();
+                result[top.getId()] += (log.getTime() - top.getTime() + 1);
+                if(!stack.isEmpty()) 
+                    result[stack.peek().getId()] -= (log.getTime() - top.getTime() + 1);
+            }
+        }
+
+
+        return result;
+    }
+}
