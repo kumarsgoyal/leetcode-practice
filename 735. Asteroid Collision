@@ -1,0 +1,38 @@
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> stack = new Stack<> ();
+
+        for(int i = 0; i < asteroids.length; i++) {
+            if(stack.isEmpty() || (stack.peek() < 0 && asteroids[i] > 0) || sameSign(stack.peek(), asteroids[i])) {
+                stack.push(asteroids[i]);
+            }
+            else {
+                while(!stack.isEmpty() && (stack.peek() > 0) && (stack.peek() < Math.abs(asteroids[i]))) {
+                    stack.pop();
+                }
+
+                if(stack.isEmpty() || stack.peek() < 0) {
+                    stack.push(asteroids[i]);
+                } else if(stack.peek() == Math.abs(asteroids[i])) {
+                    stack.pop();
+                }
+
+            }
+        }
+
+        int index  = stack.size() - 1;
+        int[] result = new int[stack.size()];
+
+        while(!stack.isEmpty()) {
+            result[index--] = stack.pop();
+        }
+
+        return result;
+    }
+
+    private boolean sameSign(int a, int b) {
+        if((a < 0 && b < 0) || (a > 0 && b > 0))
+            return true;
+        return false;
+    }
+}
