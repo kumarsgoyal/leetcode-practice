@@ -1,0 +1,46 @@
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] result = new int[temperatures.length];
+        int hottest = 0;
+        
+        for(int i = temperatures.length - 1; i >= 0; i--) {
+            if (temperatures[i] >= hottest) {
+                hottest = temperatures[i];
+                continue;
+            }
+            
+            int days = 1;
+            while(temperatures[i + days] <= temperatures[i]){
+               days += result[i + days];
+            }
+            
+            result[i] = days;
+            
+        }
+
+        return result;
+    }
+}
+
+
+/*
+
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] result = new int[temperatures.length];
+        Stack<Integer> stack = new Stack<> ();
+
+        for(int i = 0; i < temperatures.length; i++) {
+            while(!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]) {
+                result[stack.peek()] = i - stack.peek();
+                stack.pop();
+            }
+
+            stack.push(i);
+        }
+
+        return result;
+    }
+}
+
+*/
