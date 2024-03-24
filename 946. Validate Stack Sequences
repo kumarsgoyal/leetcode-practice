@@ -1,0 +1,24 @@
+class Solution {
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        int indexPushed = 0;
+        int indexPopped = 0;
+        Stack<Integer> stack = new Stack<> ();
+
+        while(indexPushed < pushed.length || indexPopped < popped.length) {
+            if(!stack.isEmpty() && stack.peek() == popped[indexPopped]) {
+                stack.pop();
+                indexPopped++;
+            }
+            else if(indexPushed < pushed.length) {
+                stack.push(pushed[indexPushed]);
+                indexPushed++;
+            }
+            else {
+                return false;
+            }
+        }
+
+        return stack.isEmpty();
+        
+    }
+}
