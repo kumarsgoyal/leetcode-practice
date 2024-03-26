@@ -1,0 +1,42 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+        return majorityElementUtil(nums);
+    }
+
+    private int majorityElementUtil(int[] nums) {
+        int cand = findCandidateForMajorityElement(nums);
+
+        if(isMajorityElement(nums, cand)) 
+            return cand;
+        return -1;
+    }
+
+    private boolean isMajorityElement(int[] nums, int cand) {
+        int count = 0;
+
+        for(int num : nums) {
+            if(num == cand)
+                count++;
+        }
+
+        return count > (nums.length / 2) ? true : false;
+    }
+
+    private int findCandidateForMajorityElement(int[] nums) {
+        int cand = nums[0], count = 0;
+
+        for(int num :  nums) {
+            if(cand == num)
+                count++;
+            else 
+                count--;
+
+            if(count == 0) {
+                cand = num;
+                count = 1;
+            }
+        }
+
+        return cand;
+    }
+}
