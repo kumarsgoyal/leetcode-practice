@@ -1,0 +1,54 @@
+class Solution {
+    public int jump(int[] nums) {
+        int jump = 0;
+        int current = 0;
+        int maxReachable = 0;
+
+        for(int i = 0; i < nums.length - 1; i++) {
+            maxReachable = Math.max(maxReachable, nums[i] + i);
+
+            if(i == current) {
+                current = maxReachable;
+                jump++;
+            }
+        }
+
+        return jump;
+    }
+}
+
+
+
+
+/*
+
+class Solution {
+    public int jump(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, -1);
+        return jumpUtil(0, nums, dp);
+    }
+
+    private int jumpUtil(int index, int[] nums, int[] dp) {
+        if(index == (nums.length - 1) || index >= nums.length )
+            return 0;
+
+        if(nums[index] == 0) 
+            return Integer.MAX_VALUE;
+        
+        if(dp[index] != -1)
+            return dp[index];
+
+        int result = Integer.MAX_VALUE;
+
+        for(int i = 1; i <= nums[index]; i++) {
+            result = Math.min(result , jumpUtil(index + i, nums, dp));
+        }
+
+        dp[index] = (result == Integer.MAX_VALUE) ? result : result + 1;
+
+        return result == Integer.MAX_VALUE ? result : result + 1;
+    }
+}
+
+*/
