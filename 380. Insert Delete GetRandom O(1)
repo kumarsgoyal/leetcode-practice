@@ -1,0 +1,74 @@
+class DoubleLinkedList {
+    int val;
+    DoubleLinkedList prev;
+    DoubleLinkedList next;
+
+    public DoubleLinkedList(int val) {
+        this.val = val;
+    }  
+} 
+
+class RandomizedSet {
+    private DoubleLinkedList head;
+    private DoubleLinkedList tail;
+    private Map<Integer, DoubleLinkedList> valMap;
+    private Map<Integer, DoubleLinkedList> indexMap;
+    private int index;
+
+    public RandomizedSet() {
+        tail = head = new DoubleLinkedList(0);
+        valMap = new HashMap<> ();
+        indexMap = new HashMap<> ();
+        index = 0;
+    }
+    
+    public boolean insert(int val) {
+        if(valMap.get(val) != null)
+            return false;
+        
+        DoubleLinkedList temp = new DoubleLinkedList(val);
+        tail.next = temp;
+        temp.prev = tail; 
+        tail = temp; 
+
+        valMap.put(val, temp);
+        indexMap.put(index, temp);
+        index++;
+        return true;
+    }
+    
+    public boolean remove(int val) {  
+        if(valMap.get(val) == null)  
+            return false;  
+
+        tail = tail.prev;
+        DoubleLinkedList remove = valMap.get(val);  
+        DoubleLinkedList last = indexMap.get(index - 1);
+        if(last != remove) {
+            remove.val = last.val;  
+            valMap.put(remove.val, remove);
+        }
+        last.prev.next = null;
+        last.prev = null;
+
+        valMap.remove(val);  
+        indexMap.remove(index - 1);
+        index--;
+
+        return true;
+    }
+    
+    public int getRandom() {
+        Random rand = new Random();
+        int size = rand.nextInt(index);
+        return indexMap.get(size).val;
+    }
+}
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */
