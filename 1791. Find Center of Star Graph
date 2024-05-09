@@ -1,0 +1,22 @@
+class Solution {
+    public int findCenter(int[][] edges) {
+        int[] freq = new int[edges.length + 2];
+        int max = 0, result = 0;
+
+        for(int [] edge : edges) {
+            freq[edge[0]]++;
+            freq[edge[1]]++;
+        }
+        
+        for(int i = 0; i < freq.length; i++) {
+            if(max < freq[i]) {
+                max = freq[i];
+                result = i;
+            }
+        }
+
+        return result;
+    } 
+}
+
+
