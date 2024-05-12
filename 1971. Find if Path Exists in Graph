@@ -1,0 +1,27 @@
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        for (int[] edge : edges) {
+            graph.computeIfAbsent(edge[0], k -> new HashSet<>()).add(edge[1]);
+            graph.computeIfAbsent(edge[1], k -> new HashSet<>()).add(edge[0]);
+        }
+        Set<Integer> visited = new HashSet<>();
+        return dfs(source, destination, graph, visited);
+    }
+
+    private boolean dfs(int start, int end, Map<Integer, Set<Integer>> graph, Set<Integer> visited) {
+        if (start == end)
+            return true;
+
+        visited.add(start);
+        if (!graph.containsKey(start)) // only for directed graph 
+            return false;
+
+        for (int neighbor : graph.get(start)) {
+            if (!visited.contains(neighbor) && dfs(neighbor, end, graph, visited))
+                return true;
+        }
+
+        return false;
+    }
+}
